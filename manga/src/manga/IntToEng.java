@@ -7,21 +7,14 @@ public class IntToEng {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
-        System.out.println(numOfDigits(input));
-        System.out.println(translateEng(input));
-        System.out.println(getDigit(input,5));
+        
+        santaketame(input);
+        hutaketame(input);//2桁目　ex. twenty, thirty, ...
+        if(input==0){System.out.print("zero");}//0の時だけ別処理
+        System.out.print(translateEng(getDigit(input,1)));//１桁目　
+        //System.out.println(getDigit(input,5));
     }
-    //桁数を判断するメソッド
-     static int numOfDigits( int num){
-		// 桁数
-		int digits = 0;
-		while(num > 0) {
-			num /= 10;
-			digits++;
-		}
-		return digits;
-	}
-     
+ 
      //指定の桁の数値を取得するjavaコード
      //https://qiita.com/towamz/items/efe1d60f65bebaa2a422
      static int getDigit(int argNum,int argDig){
@@ -31,7 +24,6 @@ public class IntToEng {
 
          for (int i = 1; i <= len; i++) {
              intCrntDig=argNum / d;
-
              //指定桁になったらforを抜ける
              if(len-i+1==argDig){
                  break;
@@ -42,16 +34,42 @@ public class IntToEng {
          return intCrntDig;
      }
      
-     //20
-     static void twenty(int input){
+     //2桁目
+     static void hutaketame(int input){
     	 if(getDigit(input,2)==2){	 
-    	     System.out.println("twenty");
+    	     System.out.print("twenty ");
          }
+    	 if(getDigit(input,2)==3){	 
+    	     System.out.print("thirty ");
+         }
+    	 if(getDigit(input,2)==4){	 
+    	     System.out.print("forty ");
+         }
+    	 if(getDigit(input,2)==5){	 
+    	     System.out.print("fifty ");
+         }
+    	 if(getDigit(input,2)==6){	 
+    	     System.out.print("sixty ");
+         }
+    	 if(getDigit(input,2)==7){	 
+    	     System.out.print("seventy ");
+         }
+    	 if(getDigit(input,2)==8){	 
+    	     System.out.print("eighty ");
+         }
+    	 if(getDigit(input,2)==9){	 
+    	     System.out.print("ninety ");
+         }
+    	 
+     }
+     
+     //３桁目
+     static void santaketame(int input){
+    	 System.out.print(translateEng(getDigit(input,3))+" hundred ");
      }
     
     // 数値を英訳する変換するメソッド
     static String translateEng(int n) {
-    	if(n==0){return "zero";}
     	if(n==1){return "one";}
     	if(n==2){return "two";}
     	if(n==3){return "three";}
@@ -71,7 +89,6 @@ public class IntToEng {
     	if(n==17){return "seventeen";}
     	if(n==18){return "eighteen";}
     	if(n==19){return "nineteen";}
-    	if(n==20){return "twenty";}
         return "";
     }
 
