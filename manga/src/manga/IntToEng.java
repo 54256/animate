@@ -8,23 +8,31 @@ public class IntToEng {
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         int len = String.valueOf(input).length();
-        
-        if(len==5){
+        if(len==6){
+            sanketame(input,6);
+          }
+        if(len>=5){
           goketame(input);
         }
         if(len==4){
         	yonketame(input);
        }
         if(len>=3){
-        sanketame(input);
+        sanketame(input,3);
         }
+        if(len>=2){
         hutaketame(input,2);//2桁目　ex. twenty, thirty, ...
-        if(input==0){System.out.print("zero");}//0の時だけ別処理
-        if(getDigit(input,2)==1){
-        	System.out.print(translateEngtwo(getDigit(input,1)));
-        }else{
-            System.out.print(translateEng(getDigit(input,1)));//１桁目　
+         if(getDigit(input,2)==1){
+    	  System.out.print(translateEngtwo(getDigit(input,1)));
+            }else{
+          System.out.print(translateEng(getDigit(input,1)));//１桁目　
+         }
         }
+        if(len==1){
+        if(input==0){System.out.print("zero");}//0の時だけ別処理
+           System.out.print(translateEng(getDigit(input,1)));//１桁目　
+        }
+        
     }
  
      //指定の桁の数値を取得するjavaコード
@@ -76,29 +84,25 @@ public class IntToEng {
      }
      
      //３桁目
-     static void sanketame(int input){
-    	 if(getDigit(input,3)!=0){
-    	     System.out.print(translateEng(getDigit(input,3))+" hundred ");
+     static void sanketame(int input,int kurai){
+    	 if(getDigit(input,kurai)!=0){
+    	     System.out.print(translateEng(getDigit(input,kurai))+" hundred ");
     	 }
      }
      
      //４桁目
      static void yonketame(int input){
-    	 if(getDigit(input,4)!=0){
     	     System.out.print(translateEng(getDigit(input,4))+" thousand, ");
-    	 }
      }
      
      //5桁目
      static void goketame(int input){
-    	 if(getDigit(input,5)!=0){
     		 hutaketame(input,5);
     	        if(getDigit(input,5)==1){
     	        	System.out.print(translateEngtwo(getDigit(input,4)));
     	        }else{      	
     	            System.out.print(translateEng(getDigit(input,4)));//１桁目　
     	        }
-    	 }
     	 System.out.print(" thousand, ");
      }
      
@@ -113,7 +117,6 @@ public class IntToEng {
     	if(n==7){return "seven";}
     	if(n==8){return "eight";}
     	if(n==9){return "nine";}
-    	
     	return "";
     }
     static String translateEngtwo(int n) {
