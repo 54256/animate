@@ -7,12 +7,24 @@ public class IntToEng {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
+        int len = String.valueOf(input).length();
         
-        santaketame(input);
-        hutaketame(input);//2桁目　ex. twenty, thirty, ...
+        if(len==5){
+          goketame(input);
+        }
+        if(len==4){
+        	yonketame(input);
+       }
+        if(len>=3){
+        sanketame(input);
+        }
+        hutaketame(input,2);//2桁目　ex. twenty, thirty, ...
         if(input==0){System.out.print("zero");}//0の時だけ別処理
-        System.out.print(translateEng(getDigit(input,1)));//１桁目　
-        //System.out.println(getDigit(input,5));
+        if(getDigit(input,2)==1){
+        	System.out.print(translateEngtwo(getDigit(input,1)));
+        }else{
+            System.out.print(translateEng(getDigit(input,1)));//１桁目　
+        }
     }
  
      //指定の桁の数値を取得するjavaコード
@@ -35,39 +47,61 @@ public class IntToEng {
      }
      
      //2桁目
-     static void hutaketame(int input){
-    	 if(getDigit(input,2)==2){	 
+     static void hutaketame(int input, int kurai){
+    	 if(getDigit(input,kurai)==2){	 
     	     System.out.print("twenty ");
          }
-    	 if(getDigit(input,2)==3){	 
+    	 if(getDigit(input,kurai)==3){	 
     	     System.out.print("thirty ");
          }
-    	 if(getDigit(input,2)==4){	 
+    	 if(getDigit(input,kurai)==4){	 
     	     System.out.print("forty ");
          }
-    	 if(getDigit(input,2)==5){	 
+    	 if(getDigit(input,kurai)==5){	 
     	     System.out.print("fifty ");
          }
-    	 if(getDigit(input,2)==6){	 
+    	 if(getDigit(input,kurai)==6){	 
     	     System.out.print("sixty ");
          }
-    	 if(getDigit(input,2)==7){	 
+    	 if(getDigit(input,kurai)==7){	 
     	     System.out.print("seventy ");
          }
-    	 if(getDigit(input,2)==8){	 
+    	 if(getDigit(input,kurai)==8){	 
     	     System.out.print("eighty ");
          }
-    	 if(getDigit(input,2)==9){	 
+    	 if(getDigit(input,kurai)==9){	 
     	     System.out.print("ninety ");
          }
     	 
      }
      
      //３桁目
-     static void santaketame(int input){
-    	 System.out.print(translateEng(getDigit(input,3))+" hundred ");
+     static void sanketame(int input){
+    	 if(getDigit(input,3)!=0){
+    	     System.out.print(translateEng(getDigit(input,3))+" hundred ");
+    	 }
      }
-    
+     
+     //４桁目
+     static void yonketame(int input){
+    	 if(getDigit(input,4)!=0){
+    	     System.out.print(translateEng(getDigit(input,4))+" thousand, ");
+    	 }
+     }
+     
+     //5桁目
+     static void goketame(int input){
+    	 if(getDigit(input,5)!=0){
+    		 hutaketame(input,5);
+    	        if(getDigit(input,5)==1){
+    	        	System.out.print(translateEngtwo(getDigit(input,4)));
+    	        }else{      	
+    	            System.out.print(translateEng(getDigit(input,4)));//１桁目　
+    	        }
+    	 }
+    	 System.out.print(" thousand, ");
+     }
+     
     // 数値を英訳する変換するメソッド
     static String translateEng(int n) {
     	if(n==1){return "one";}
@@ -79,16 +113,20 @@ public class IntToEng {
     	if(n==7){return "seven";}
     	if(n==8){return "eight";}
     	if(n==9){return "nine";}
-    	if(n==10){return "ten";}
-    	if(n==11){return "eleven";}
-    	if(n==12){return "twelve";}
-    	if(n==13){return "thirteen";}
-    	if(n==14){return "fourteen";}
-    	if(n==15){return "fifteen";}
-    	if(n==16){return "sixteen";}
-    	if(n==17){return "seventeen";}
-    	if(n==18){return "eighteen";}
-    	if(n==19){return "nineteen";}
+    	
+    	return "";
+    }
+    static String translateEngtwo(int n) {
+    	if(n==0){return "ten";}
+    	if(n==1){return "eleven";}
+    	if(n==2){return "twelve";}
+    	if(n==3){return "thirteen";}
+    	if(n==4){return "fourteen";}
+    	if(n==5){return "fifteen";}
+    	if(n==6){return "sixteen";}
+    	if(n==7){return "seventeen";}
+    	if(n==8){return "eighteen";}
+    	if(n==9){return "nineteen";}
         return "";
     }
 
